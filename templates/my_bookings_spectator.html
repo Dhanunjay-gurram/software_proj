@@ -1,0 +1,125 @@
+
+{% extends 'base_spectator.html' %}
+{% load static %}
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Additional CSS styles for the bookings table */
+    .my-bookings {
+        margin-top: 20px; /* Add space between table and previous elements */
+    }
+
+    .table-container {
+        overflow-x: auto; /* Enable horizontal scrolling if table is wider than container */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px; /* Add space between table and previous elements */
+    }
+    
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .cancel-column {
+        text-align: center; /* Center align content in cancel column */
+    }
+
+    .ticket-column {
+        text-align: center; /* Center align content in ticket column */
+    }
+
+    .cancel-btn {
+        padding: 8px 12px; /* Adjust padding for consistent button size */
+        background-color: #f44336; /* Red color for cancel button */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none; /* Remove underline for anchor tags */
+        display: inline-block; /* Make anchor tags inline-block for consistent alignment */
+        text-align: center; /* Center button text */
+    }
+
+    .ticket-btn {
+        padding: 8px 12px; /* Adjust padding for consistent button size */
+        background-color: #4CAF50; /* Green color for ticket button */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none; /* Remove underline for anchor tags */
+        display: inline-block; /* Make anchor tags inline-block for consistent alignment */
+        text-align: center; /* Center button text */
+    }
+
+    .cancel-btn:hover {
+        background-color: #d32f2f; /* Darker red color on hover */
+    }
+
+    .ticket-btn:hover {
+        background-color: #45a049; /* Darker green color on hover */
+    }
+    .content {
+            margin-left: 150px; 
+            padding: 20px;
+            overflow: hidden;
+            background-color: #FAFBFE;
+        }
+
+</style>
+
+<div class="content">
+    <div class="my-bookings">
+        <h1>My Bookings</h1>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Show Name</th>
+                    <th>Date</th>
+                    <th>Timing</th>
+                    <th>Seat Type</th>
+                    <th>Price</th>
+                    <th>Customer Name</th>
+                    <th>Cancel</th> <!-- Column for cancel button -->
+                    <th>View Ticket</th> <!-- Column for view ticket button -->
+                </tr>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.show_name }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.timing }}</td>
+                    <td>{{ booking.seat_type }}</td>
+                    <td>{{ booking.price }}</td>
+                    <td>{{ booking.username }}</td>
+                    <td class="cancel-column">
+                        <form action="{% url 'cancel_booking_spectator' booking.txn_id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="cancel-btn">Cancel</button>
+                        </form>
+                    </td>
+                    <td class="ticket-column">
+                        <form action="{% url 'view_ticket_spectator' booking.booking_id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="ticket-btn">Ticket</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

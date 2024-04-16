@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Yearly Balance Sheet{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+
+<div class="container">
+    <h1>Yearly Balance Sheet</h1>
+    <div class="bs">
+    <form method="post">
+        {% csrf_token %}
+        <label for="year" style="padding-right: 4px;">Select Year:</label>
+        <select id="year" name="year">
+            <option value="" disabled selected>Select Year</option>
+            {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br> 
+        <button type="submit" style="padding-left: 35px; padding-right: 35px;">Show Balance Sheet</button>
+    </form>
+    </div>
+    {% if balance_sheet %}
+    <p style="text-align: center; font-weight: bold; color: #333;">Year : {{ curr_year }} </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Sales ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in balance_sheet %}
+                    <tr>
+                        <td>{{ item.date }}</td>
+                        <td>{{ item.amount }}</td>
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.sales_id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="total">
+                    <td>Net Amount</td>
+                    <td>{{ total_amount }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    {% else %}
+        <p>No data available.</p>
+    {% endif %}
+</div>
+{% endblock %}

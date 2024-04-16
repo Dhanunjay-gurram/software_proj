@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">   
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <p>Welcome {{ manager_id }}</p>
+        <a href="{% url 'manager_profile' %}"><i class="lni lni-user"></i><span>  Profile</span></a> 
+        <a href="{% url 'add_show' %}"><i class="lni lni-plus"></i> Add Show</a>
+        <a href="{% url 'add_salesperson' %}"><i class="lni lni-plus"></i> Add Sales Person</a>
+        <a href="{% url 'view_balance_sheet' %}"><i class="lni lni-rupee"></i> Balance Sheet</a>
+        <a href="{% url 'yearly_balance_sheet' %}"><i class="lni lni-rupee"></i> Yearly Balance Sheet</a>
+        <a href="{% url 'show_list' %}"><i class="lni lni-information"></i> Show Details</a>
+        <a href="{% url 'salesperson_list' %}"><i class="lni lni-users"></i> Sales Personnel</a> 
+        <div class="logout-btn">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit"><i class="lni lni-exit"></i> Logout</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="content">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+</body>
+
+</html>

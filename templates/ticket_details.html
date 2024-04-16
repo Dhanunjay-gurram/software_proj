@@ -1,0 +1,51 @@
+
+{% extends 'base_salesperson.html' %}
+{% load static %}
+{% block title %}Ticket Booking Success{% endblock %}
+
+{% block content %}
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .ticket-details {
+        margin-top: 20px;
+    }
+
+    .ticket-details p {
+        margin-bottom: 10px;
+    }
+
+    .ticket-details strong {
+        font-weight: bold;
+    }
+</style>
+
+<div class="container">
+    <h1>Ticket Booking Success</h1>
+    <div class="ticket-details">
+        <p><strong>BOOKING ID:</strong> {{ ticket.booking_id }}</p>
+        <p><strong>Show Name:</strong> {{ ticket.show_name }}</p>
+        <p><strong>Date:</strong> {{ ticket.date }}</p>
+        <p><strong>Timing:</strong> {{ ticket.timing }}</p>
+        <p><strong>Seat Type:</strong> {{ ticket.seat_type }}</p>
+        <p><strong>Seat Number:</strong> {{ ticket.seat_no }}</p>
+        <p><strong>Price:</strong> {{ ticket.price }}</p>
+        <p><strong>Name:</strong> {{ ticket.username }}</p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+
+{% extends 'base_spectator.html' %}
+{% load static %}
+{% block title %}Spectator Details{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Your existing CSS styles */
+
+    .profile-section {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+
+    .profile-section label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .profile-section input[type="text"],
+    .profile-section input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .profile-section button {
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .change-section {
+        display: none;
+    }
+</style>
+
+<div class="container">
+    <h1>Spectator Details</h1>
+    <div class="spectator-details">
+        <p><strong>Username:</strong> {{ spectator.username }}</p>
+        <p><strong>Name:</strong> {{ spectator.first_name }}</p>
+    </div>
+
+    <!-- Button to toggle the name change section -->
+    <button class="toggle-btn" type="button" onclick="toggleSection('name-section')">Change Name</button>
+
+    <!-- Name change section -->
+    <div id="name-section" class="profile-section change-section">
+        <h2>Update Name</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="name">New Name:</label>
+            <input type="text" id="name" name="name" value="{{ spectator.first_name }}">
+            <button type="submit">Update</button>
+        </form>
+    </div>
+
+     <!-- Button to toggle the password change section -->
+     <button class="toggle-btn" type="button" onclick="toggleSection('password-section')">Change Password</button>
+
+     <!-- Password change section -->
+     <div id="password-section" class="profile-section change-section">
+         <h2>Update Password</h2>
+         <form method="post">
+             {% csrf_token %}
+             <label for="password">New Password:</label>
+             <input type="password" id="password" name="password">
+             <label for="confirm_password">Confirm Password:</label>
+             <input type="password" id="confirm_password" name="confirm_password">
+             <button type="submit">Update</button>
+         </form>
+     </div>
+</div>
+
+<script>
+    // Function to toggle visibility of sections
+    function toggleSection(sectionId) {
+        var section = document.getElementById(sectionId);
+        section.classList.toggle('change-section');
+    }
+</script>
+
+{% endblock %}

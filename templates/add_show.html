@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Show{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+
+{% include 'messages.html' %}
+
+<div class="wrapper-as">
+    <h2>Show Details</h2>
+    <div class="container-as">
+        <form method="post" action="{% url 'add_show' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="show_name">Show Name</label>
+                <input type="text" id="show_name" name="show_name" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="num_shows">Number of Shows</label>
+                <input type="number" id="num_shows" name="num_shows" min="1" required>
+            </div>
+            <div id="show-details">
+            </div>
+            <div class="form-group input-submit">
+                <input type="submit" value="Add Shows">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'add_show.js' %}"></script> 
+{% endblock %}

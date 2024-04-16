@@ -1,0 +1,40 @@
+
+{% extends 'base_spectator.html' %}
+{% load static %}
+{% block title %}Book Ticket{% endblock %}
+
+{% include 'messages.html' %}
+
+{% block content %}
+<style>
+     .content {
+            margin-left: 150px; 
+            padding: 20px;
+            overflow: hidden;
+            background-color: #FAFBFE;
+        }
+</style>
+<div class="content">
+    <h1>Book Ticket</h1>
+    <div class="container">
+    <h2>Select Salesperson</h2>
+    <form method="post">
+        {% csrf_token %}
+        <select name="salesperson">
+            {% for salesperson in salespersons %}
+                <option value="{{ salesperson.sales_id }}">{{ salesperson.first_name }}</option>
+            {% endfor %}
+        </select>
+        <h2>Select Seat</h2>
+        <select name="seat">
+            {% for seat in seats %}
+                <option value="{{ seat.seat_no }}">{{ seat.seat_no }}</option>
+            {% endfor %}
+        </select>
+        
+        <br><br>
+        <button type="submit">Pay and Book</button>
+    </form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+
+{% extends 'base_spectator.html' %}
+{% load static %}
+{% block title %}Spectator Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    .content {
+            margin-left: 150px; 
+            padding: 20px;
+            overflow: hidden;
+            background-color: #FAFBFE;
+        }
+
+</style>
+<div class="content">
+    <h1>Current Shows</h1>
+    <ul>
+        {% for show in shows %}
+            <li>
+                <h3>{{ show.show_name }}</h3>
+                <p>Date: {{ show.date }}, Timing: {{ show.timing }}</p>
+                <form action="{% url 'book_ticket_spectator' show.show_id %}" method="post" >
+                    {% csrf_token %}
+                    <input type="hidden" name="show_id" value="{{ show.id }}">
+                    <button type="submit">Book Now</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

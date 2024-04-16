@@ -1,0 +1,46 @@
+<!-- wallet.html -->
+
+{% extends 'base_salesperson.html' %}
+{% block title %}Wallet{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Your Wallet Balance</h2>
+    <p>Current Balance: &#8377;{{ wallet_balance }}</p>
+    <button id="add-money-btn">Add Money</button>
+    <button id="withdraw-money-btn">Withdraw Money</button>
+
+    <div id="add-money-form" style="display: none;">
+        <form id="add-money-form" method="post">
+            {% csrf_token %}
+            <br>
+            <label for="add-amount">Enter Amount :</label>
+            <br>
+            <input type="number" id="add-amount" name="add_amount" min="0" required>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+    <div id="withdraw-money-form" style="display: none;">
+        <form id="withdraw-money-form" method="post">
+            {% csrf_token %}
+            <br>
+            <label for="withdraw-amount">Enter Amount :</label>
+            <br>
+            <input type="number" id="withdraw-amount" name="withdraw_amount" min="0" required>
+            <button type="submit">Withdraw</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('add-money-btn').addEventListener('click', function() {
+            document.getElementById('add-money-form').style.display = 'block';
+            document.getElementById('withdraw-money-form').style.display = 'none';
+        });
+        document.getElementById('withdraw-money-btn').addEventListener('click', function() {
+            document.getElementById('withdraw-money-form').style.display = 'block';
+            document.getElementById('add-money-form').style.display = 'none';
+        });
+    });
+</script>
+{% endblock %}

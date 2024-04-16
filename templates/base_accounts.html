@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <p>Welcome</p>
+        <a href="{% url 'accounts_profile' %}"><i class="lni lni-user"></i> Profile</a>
+        <a href="{% url 'add_expenses' %}"><i class="lni lni-plus"></i> Add Expenses</a>
+        <a href="{% url 'view_expenses' %}"><i class="lni lni-information"></i> View Expenses</a> <!-- Added View Expenses button -->
+        <div class="logout-btn">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit"><i class="lni lni-exit"></i> Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        {% block content %}
+        <!-- Your main content goes here -->
+        {% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Salesperson Details{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+
+<div class="container">
+    <h1>Sales Persons List</h1>
+    <ul>
+        {% for salesperson in salespersons %}
+            <li>
+                <div class="salesperson-details">
+                    <h3>{{ salesperson.first_name }}</h3>
+                    <span>ID: {{ salesperson.sales_id }}</span>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="message {% if message.tags %} {{ message.tags }} {% endif %}">
+                {% if message.tags == 'error' %}
+                    <span class="icon">&#x26A0;</span>
+                {% elif message.tags == 'success' %}
+                    <span class="icon">&#x2714;</span>
+                {% else %}
+                    <span class="icon">&#x2756;</span>
+                {% endif %}
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

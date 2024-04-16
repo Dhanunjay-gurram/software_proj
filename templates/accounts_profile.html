@@ -1,0 +1,101 @@
+
+{% extends 'base_accounts.html' %}
+{% load static %}
+{% block title %}Account Clerk Details{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Your existing CSS styles */
+
+    .profile-section {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+
+    .profile-section label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .profile-section input[type="text"],
+    .profile-section input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .profile-section button {
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .change-section {
+        display: none;
+    }
+</style>
+<div class="content">
+<div class="container">
+    <h1>Account Clerk Profile</h1>
+    <div class="accounts-details">
+        <p><strong>Username:</strong> {{ accounts.username }}</p>
+        <p><strong>Name:</strong> {{ accounts.first_name }}</p>
+    </div>
+
+    <button class="toggle-btn" onclick="toggleSection('password-section')">Change Password</button>
+
+    <div id="password-section" class="profile-section change-section">
+        <h2>Update Password</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="new_password">New Password:</label>
+            <input type="password" id="new_password" name="new_password">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password">
+            <button type="submit">Update</button>
+        </form>
+    </div>
+
+    <button class="toggle-btn" onclick="toggleSection('name-section')">Change Name</button>
+
+    <div id="name-section" class="profile-section change-section">
+        <h2>Update Name</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="name">New Name:</label>
+            <input type="text" id="name" name="name" value="{{ accounts.first_name }}">
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</div>
+</div>
+<script>
+
+    function toggleSection(sectionId) {
+        var section = document.getElementById(sectionId);
+        var allSections = document.querySelectorAll('.profile-section');
+        
+        allSections.forEach(function(sec) {
+            if (sec.id !== sectionId) {
+                sec.classList.add('change-section');
+            }
+        });
+        
+        section.classList.toggle('change-section');
+    }
+</script>
+
+
+{% endblock %}

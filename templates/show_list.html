@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Show List{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+
+<div class="container">
+    <h1>Show List</h1>
+    <ul class="show-list">
+        {% for show_info in show_data %}
+            <li class="show-item">
+                <div class="show-details">
+                    <h3>{{ show_info.show.show_name }}</h3>
+                    <p class="show-info">{{ show_info.show.date }} - {{ show_info.show.timing }}</p>
+                    <div class="seat-info">
+                        <p>Empty Balcony Seats: {{ show_info.balcony_seats_count }}%</p>
+                        <p>Empty Ordinary Seats: {{ show_info.ordinary_seats_count }}%</p>
+                    </div>
+                    <p class="amount-collected">Total Amount Collected: &#8377;{{ show_info.total_amount_collected }}</p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

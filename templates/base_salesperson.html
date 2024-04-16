@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <p>Welcome {{ username }}</p>
+        <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
+        <a href="{% url 'book_ticket' %}"><i class="fas fa-ticket-alt"></i> Book Tickets</a>
+        <a href="{% url 'my_bookings' %}"><i class="fas fa-list-alt"></i> My Bookings</a>
+        <a href="{% url 'wallet_sp' %}"><i class="fas fa-ticket-alt"></i> Wallet</a>
+        <div class="logout-btn">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</body>
+</html>

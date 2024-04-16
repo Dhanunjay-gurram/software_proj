@@ -1,0 +1,91 @@
+
+{% extends 'base_accounts.html' %}
+{% load static %}
+{% block title %}Edit Expense{% endblock %}
+
+{% block content %}
+<style>
+    /* Add Expenses Form Styles */
+    .expenses-form { 
+        max-width: 500px;
+        margin: auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: calc(100% - 30px); /* Adjusted width */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .input-group-prepend {
+        padding: 6px 12px;
+        background-color: #f3f4f6;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .input-group-text {
+        border: none;
+        background-color: transparent;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Adjusted styles for amount input */
+    .amount-input {
+        width: calc(100% - 44px); /* Adjusted width */
+    }
+</style>
+<div class="content">
+<div class="container">
+    <h1>Edit Expense</h1>
+    <div class="expenses-form">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="txn_id" value="{{ expense.txn_id }}">
+            <div class="form-group">
+                <label for="show_id">Select Show:</label>
+                <select id="show_id" name="show_id" required class="form-control">
+                    <option value="" disabled>Select Show</option>
+                    {% for show in shows %}
+                    <option value="{{ show.show_id }}" {% if show.show_id == expense.show_id %} selected {% endif %}>{{ show.show_name }} - {{ show.date }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="expense_type">Expense Type:</label>
+                <input type="text" id="expense_type" name="expense_type" required class="form-control" value="{{ expense.type }}">
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount( <span class="input-group-text">&#8377;</span>):</label>
+                <div class="input-group">
+                    <input type="number" id="amount" name="amount" min="0.00" step="0.01" required class="form-control amount-input" value="{{ expense.amount }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Expense</button>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

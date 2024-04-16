@@ -1,0 +1,117 @@
+
+{% extends 'base_salesperson.html' %}
+{% load static %}
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+<style>
+    .my-bookings {
+        margin-top: 20px; 
+        text-align: center;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px auto;
+    }
+    
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .cancel-column {
+        text-align: center; 
+    }
+
+    .ticket-column {
+        text-align: center; 
+    }
+
+    .cancel-btn {
+        padding: 8px 12px; 
+        background-color: #f44336; 
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        display: inline-block; 
+        text-align: center; 
+    }
+
+    .ticket-btn {
+        padding: 8px 12px; 
+        background-color: #4CAF50; 
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        display: inline-block; 
+        text-align: center; 
+    }
+
+    .cancel-btn:hover {
+        background-color: #d32f2f; 
+    }
+
+    .ticket-btn:hover {
+        background-color: #45a049; 
+    }
+</style>
+
+<div class="content">
+    <div class="my-bookings">
+        <h1>My Bookings</h1>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Show Name</th>
+                    <th>Date</th>
+                    <th>Timing</th>
+                    <th>Seat Type</th>
+                    <th>Price</th>
+                    <th>Customer Name</th>
+                    <th>Cancel</th> <!-- Column for cancel button -->
+                    <th>View Ticket</th> <!-- Column for view ticket button -->
+                </tr>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.show_name }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.timing }}</td>
+                    <td>{{ booking.seat_type }}</td>
+                    <td>{{ booking.price }}</td>
+                    <td>{{ booking.username }}</td>
+                    <td class="cancel-column">
+                        <form action="{% url 'cancel_booking' booking.txn_id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="cancel-btn">Cancel</button>
+                        </form>
+                    </td>
+                    <td class="ticket-column">
+                        <form action="{% url 'view_ticket' booking.booking_id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="ticket-btn">Ticket</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

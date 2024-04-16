@@ -1,0 +1,27 @@
+<!-- wallet.html -->
+
+{% extends 'base_spectator.html' %}
+{% block title %}Wallet{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Your Wallet Balance</h2>
+    <p>Current Balance: &#8377;{{ wallet_balance }}</p>
+    <button id="add-money-btn">Add Money</button>
+    <div id="add-money-form" style="display: none;">
+        <form id="money-form" method="post">
+            {% csrf_token %}
+            <label for="amount">Enter Amount to Add:</label>
+            <input type="number" id="amount" name="amount" min="0" required>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('add-money-btn').addEventListener('click', function() {
+            document.getElementById('add-money-form').style.display = 'block';
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,81 @@
+
+{% extends 'base_salesperson.html' %}
+{% load static %}
+{% block title %}Book Ticket{% endblock %}
+
+{% block content %}
+
+<style>
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    form {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    select, input[type="text"], input[type="tel"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: auto;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .seat-info {
+        margin-top: 20px;
+    }
+
+    .seat-info p {
+        margin-bottom: 10px;
+    }
+</style>
+
+{% include 'messages.html' %}
+
+<div class="container">
+    <h1>Book Ticket</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="show">Select Show:</label>
+        <select id="show" name="show">
+            {% for show_info in show_data %}
+                <option value="{{ show_info.show.show_id }}">{{ show_info.show.show_name }} - {{ show_info.show.date }} - {{ show_info.show.timing }} 
+                    <span>  ||  Balcony Seats: {{ show_info.balcony_seats_count }}</span>
+                    <span>  ||  Ordinary Seats: {{ show_info.ordinary_seats_count }}</span>
+                </option>
+            {% endfor %}
+        </select>
+        <label for="seat_type">Select Seat Type:</label>
+        <select id="seat_type" name="seat_type">
+            <option value="balcony">Balcony</option>
+            <option value="ordinary">Ordinary</option>
+        </select>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Book Ticket</button>
+    </form>
+</div>
+
+{% endblock %}
